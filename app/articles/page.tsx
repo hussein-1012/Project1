@@ -1,29 +1,52 @@
-//'use client';
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import * as Dialog from "@radix-ui/react-dialog";
-type Article = 
-{
+//import * as Dialog from "@radix-ui/react-dialog";
+
+type Article = {
   id: number;
   title: string;
   userId: number;
   description: string;
 };
-const ArticlePage = async () => 
-  {
-  // delay 10 sec
-   await new Promise((resolve) => setTimeout(resolve , 3000));
-  
-   const response = await fetch('https://jsonplaceholder.typicode.com/posts', 
-  {
-    next: { revalidate: 10 }
-  });
 
-  const articles: Article[] = await response.json();
+const ArticlePage = () => {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!response.ok) 
-  {
-    throw new Error("Failed to fetch articles");
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        // Simulate delay
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+          next: { revalidate: 3 }
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch articles");
+        }
+
+        const data: Article[] = await response.json();
+        setArticles(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center text-gray-500">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500">Error: {error}</div>;
   }
 
   return (
@@ -37,7 +60,8 @@ const ArticlePage = async () =>
             <p className="text-yellow-400 mb-4">{el.description}</p>
             <Link href={`/articles/${el.id}`} className="inline-block bg-purple-600
              text-white px-4 py-2 rounded hover:bg-purple-700 transition duration-300 ease-in-out">
-              Read More </Link>
+              Read More 
+            </Link>
           </div>
         ))}
       </div>

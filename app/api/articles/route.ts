@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { articles } from '@/utils/data';
+import { articles } from '@/utils/data';  // Corrected named import
 import { z } from 'zod';
 import { CreateArticleDto } from "../../utils/dtos";  // Keep this import
 import { PrismaClient, Article } from "@prisma/client";
