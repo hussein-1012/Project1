@@ -1,0 +1,66 @@
+body {
+  background-color: rgb(3, 1, 32);
+  color: rgb(184, 181, 181);
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  color: white;
+  width: 500px;
+}
+
+form {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  font-size: 20px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 7px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(220, 220, 220);
+  margin-top: 0;
+  margin-bottom: 10px;
+  background-color: gray;
+  color: white;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgb(38, 49, 101);
+}
+
+input:focus,
+textarea:focus {
+  border: 2px solid rgba(0, 206, 158, 1);
+}
+
+textarea {
+  max-height: 100px;
+  min-height: 100px;
+}
+
+.P {
+  margin-top: 50px;
+  cursor: pointer;
+  background: rgb(39, 39, 207);
+  color: rgb(0, 0, 0);
+  border-radius: 3ch;
+  width: 100px;
+  display: flex;
+}
+
+input[type="submit"]:hover {
+  background: rgb(4, 5, 93);
+  color: white;
+}
